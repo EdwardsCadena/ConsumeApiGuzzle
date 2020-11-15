@@ -1,13 +1,24 @@
-@extends('layaout.app')
-@section('content')
-<br>
-<div class="ui grid stackable ">
-    <div class="row">
-        <div class="ui twelve wide column">
-            <h2>Publicaciones</h2>
+@extends('layout.app')
 
+@section('content')
+    <div class="row">
+        <div class="col-lg-12 margin-tb">
+            <div class="pull-left">
+                <h2>Publicaciones</h2>
+            </div>
+            <div class="pull-right">
+                <a class="btn btn-success" href=""> Crear nueva publicacion.</a>
+            </div>
+        </div>
+    </div>
+   
+    @if ($message = Session::get('success'))
+        <div class="alert alert-success">
+            <p>{{ $message }}</p>
+        </div>
+    @endif
     @if(sizeof($posts) > 0)
-        <table class="ui fixed table">
+        <table class="table table-bordered">
             <thead>
                 <tr>
                     <th>Usuario</th>
@@ -16,56 +27,28 @@
                 </tr>
             </thead>
             <tbody>
-            @foreach($posts as $post)
-                <tr>
-                <td>{{$post -> userId}}</td>
-                <td>{{$post -> title}}</td>
-                </tr>
-            @endforeach
+                @foreach($posts as $post)
+                    <tr>
+                        <td>{{$post -> userId}}</td>
+                        <td>{{$post -> title}}</td>
+                        <td>
+                            <form action="" method="POST">
+            
+                                <a class="btn btn-info" href="{{ route('post.show',$post->id)}}">Show</a>
                 
+                                <a class="btn btn-primary" href="">Edit</a>
+            
+                                @csrf
+                                @method('DELETE')
+                
+                                <button type="submit" class="btn btn-danger">Delete</button>
+                            </form>
+                        </td>
+                    </tr>
+                @endforeach
             </tbody>
         </table>
-    @else
-        <div class="ui negative message">
-            <i class="close icon"></i>
-            <div class="header">
-               Error
-            </div>
-            <p>No se encontraron publicaciones
-            </p>
-        </div>
     @endif
-        </div>
-        <div class="ui four wide column">
-            <h2>Crea Usuario</h2>
-            <form class="ui form" action="" method="POST">
-                    {{csrf_field()}}
-                <div class="ui inverted grey segment">
-                    <div class="ui inverted form">
-                        <div class="field">
-                            <label for="name">Nombre:</label>
-                            <input type="text" id="name" name="name" placeholder="Example">
-                        </div>
-                        <div class="field">
-                            <label for="apellido">Apellido:</label>
-                            <input type="text" id="apellido" name="apellido" placeholder="Example">
-                        </div>
-                        <div class="field">
-                            <label for="email">Correo:</label>
-                            <input type="email" id="email" name="email" placeholder="Example@example.com">
-                        </div>
-                    </div>
-                    <br>
-                    <button class="tiny ui inverted green button " type="submit">Registrar</button>
-                </div>
-            </form>
-        </div>    
-    </div>
-</div>
-
-
     
-    
-
-    
-@stop
+      
+@endsection

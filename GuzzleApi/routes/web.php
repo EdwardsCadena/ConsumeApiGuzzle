@@ -11,6 +11,6 @@
 |
 */
 
-Route::get('/',["as"=>"route.post","uses"=>"PostController@index"]);
 
-Route::get('posts/{id}',["as"=>"route.show","uses"=>"PostController@show"]);
+
+Route::resource('post','PostController');//me en lista todas las rutas con los metodos que tengo en mi controlador

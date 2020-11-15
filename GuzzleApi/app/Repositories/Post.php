@@ -10,8 +10,8 @@ class Post extends GuzzleHttpRequest
     public function lst(){
         return $this->get('posts');
     }
-    public function view(){
-        return $this->post("posts/{$id}");
+    public function view($id){
+        return $this->get("posts/{$id}");
     }
     public function edit(){
         return $this->post("posts/{$id}");
